@@ -1,0 +1,270 @@
+/* AuthPage.css */
+
+.auth-body-bg {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background: #f2f2f2;
+    overflow: hidden;
+    position: relative;
+}
+
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background: #f2f2f2;
+    top: 0;
+    left: 0;
+}
+
+.auth-container {
+    background: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 8px 8px 0 #000;
+    width: 350px;
+    margin: auto;
+    position: relative;
+    z-index: 2;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.auth-header {
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-weight: 700;
+    font-size: 24px;
+    text-align: center;
+    color: #000;
+}
+
+.auth-form {
+    width: 100%;
+    position: relative;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.auth-input {
+    width: 100%;
+    height: 45px;
+    background: white;
+    border: 0.4mm solid black;
+    outline: none;
+    border-radius: 6px;
+    padding: 0 10px;
+    padding-right: 45px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.25s;
+    color: #000;
+}
+
+.auth-input:focus {
+    box-shadow: 5px 5px 0 black;
+    padding-top: 9px;
+}
+
+.auth-label {
+    position: absolute;
+    top: 15px;
+    left: 10px;
+    font-size: 10px;
+    font-weight: bold;
+    color: rgb(30, 30, 30);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.25s;
+    pointer-events: none;
+}
+
+.auth-input:focus+.auth-label,
+.auth-input:not(:placeholder-shown)+.auth-label {
+    top: 7px;
+    opacity: 1;
+    visibility: visible;
+}
+
+.auth-input:not(:placeholder-shown) {
+    padding-top: 9px;
+}
+
+.auth-input:focus::placeholder {
+    opacity: 0;
+}
+
+.auth-btn-icon {
+    position: absolute;
+    top: 50%;
+    right: 4px;
+    width: 37px;
+    height: 37px;
+    transform: translateY(-50%);
+    border: 0.4mm solid black;
+    border-radius: 1mm;
+    background: rgb(85, 81, 255);
+    color: white;
+    font-family: 'Material Icons Outlined';
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.auth-btn-icon.loading::before {
+    content: "loop";
+    animation: rotate 1s infinite linear;
+}
+
+.auth-btn-icon.submit::before {
+    content: "done";
+    background: black;
+    color: white;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(-360deg);
+    }
+}
+
+.submit-btn {
+    width: 100%;
+    height: 45px;
+    margin-top: 10px;
+    background: black;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    border: 2px solid black;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.submit-btn:hover {
+    background: #444;
+}
+
+.toggle-text {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 12px;
+    color: #666;
+}
+
+.toggle-text span {
+    color: rgb(85, 81, 255);
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* --- Animated Submit Logic --- */
+
+/* The Button (Replacing standard btn) */
+.anim-submit-btn {
+    width: 45px;
+    /* Matching input height */
+    height: 45px;
+    outline: none;
+    border: 0.4mm solid black;
+    border-radius: 1mm;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    background: white;
+    /* Snippet default */
+    margin-left: auto;
+    /* Push to right if flex */
+    display: block;
+    margin-top: 10px;
+    transition: 0.25s;
+}
+
+.anim-submit-btn::before {
+    content: "arrow_forward";
+    font-family: "Material Icons Outlined";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(85, 81, 255);
+    color: white;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.25s;
+}
+
+/* Loading State (applied to form parent usually, or button itself) */
+.auth-form.load .anim-submit-btn {
+    background: rgb(228, 228, 228);
+}
+
+.auth-form.load .anim-submit-btn::before {
+    content: "loop";
+    background: white;
+    /* Snippet: transparent with gradient text but background-clip not supported everywhere */
+    /* Let's replicate exact snippet gradient text logic */
+    background: linear-gradient(45deg, rgb(81, 81, 255) 50%, black 50%, black 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rotate 1s infinite linear;
+}
+
+/* Success Overlay */
+.auth-form.submit::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: attr(data-success-msg);
+    /* Dynamic content */
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    background: black;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: slide 0.5s forwards;
+    overflow: hidden;
+    white-space: nowrap;
+    z-index: 50;
+    /* Above everything */
+    border-radius: 12px;
+    opacity: 0.95;
+}
+
+@keyframes slide {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+/* Hide inputs when submitted? Snippet does .submit .label { display: none } */
+/* We can hide form content or just overlay it. Overlay is cleaner. */
