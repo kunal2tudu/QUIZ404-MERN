@@ -86,6 +86,36 @@ npm run dev
 -   The **Server** runs on `http://localhost:5000`
 -   The **Client** runs on `http://localhost:5173` (or the port shown in your terminal)
 
+
+## 🐳 Running with Docker
+
+You can run the entire application stack (Client, Server, MongoDB) using Docker Compose.
+
+### Prerequisites
+- [Docker](https://www.docker.com/products/docker-desktop) installed on your machine.
+- [Docker Compose](https://docs.docker.com/compose/install/) (usually comes with Docker Desktop).
+
+### Steps
+1. **Clone the repository** (if you haven't already):
+   ```bash
+   git clone <your-repo-url>
+   cd quiz404
+   ```
+
+2. **Run the application**:
+   ```bash
+   docker-compose up --build
+   ```
+
+3. **Access the application**:
+   - Client: [http://localhost](http://localhost) (runs on port 80)
+   - Server: [http://localhost:5000](http://localhost:5000)
+
+4. **Stop the application**:
+   ```bash
+   docker-compose down
+   ```
+
 ## 🤝 Contributing
 Contributions are welcome! Feel free to fork the repository and submit a pull request.
 
