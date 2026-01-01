@@ -4,6 +4,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import gsap from 'gsap';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ParticlesBackground from '../components/ParticlesBackground';
@@ -21,7 +22,7 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchLeaderboard = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/quiz/leaderboard');
+                const res = await axios.get(`${API_BASE_URL}/api/quiz/leaderboard`);
                 setTopPlayers(res.data.slice(0, 3)); // Top 3 only
             } catch (err) {
                 console.error("Leaderboard fetch failed", err);

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 
 const Contact = () => {
     const [formData, setFormData] = useState({
@@ -20,7 +21,7 @@ const Contact = () => {
         setStatus('loading');
 
         try {
-            await axios.post('http://localhost:5000/api/contact', formData);
+            await axios.post(`${API_BASE_URL}/api/contact`, formData);
             setStatus('success');
             setFormData({ name: '', email: '', message: '' }); // Clear form
             setTimeout(() => setStatus(''), 5000); // Reset status after 5s

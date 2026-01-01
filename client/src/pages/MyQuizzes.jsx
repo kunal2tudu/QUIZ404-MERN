@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -23,7 +24,7 @@ const MyQuizzes = () => {
             const config = {
                 headers: { Authorization: `Bearer ${userInfo.token}` }
             };
-            const res = await axios.get('http://localhost:5000/api/quiz/my', config);
+            const res = await axios.get(`${API_BASE_URL}/api/quiz/my`, config);
             setQuizzes(res.data);
         } catch (error) {
             console.error(error);
@@ -40,7 +41,7 @@ const MyQuizzes = () => {
                 const config = {
                     headers: { Authorization: `Bearer ${userInfo.token}` }
                 };
-                await axios.delete(`http://localhost:5000/api/quiz/${id}`, config);
+                await axios.delete(`${API_BASE_URL}/api/quiz/${id}`, config);
                 // Remove from state
                 setQuizzes(quizzes.filter(q => q._id !== id));
             } catch (error) {

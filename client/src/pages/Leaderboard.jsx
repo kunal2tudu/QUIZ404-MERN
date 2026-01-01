@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -22,7 +23,7 @@ const Leaderboard = () => {
                 // First get quiz_id from code
                 try {
                     const token = JSON.parse(localStorage.getItem('userInfo'))?.token;
-                    const quizRes = await axios.get(`http://localhost:5000/api/quiz/code/${code}`, {
+                    const quizRes = await axios.get(`${API_BASE_URL}/api/quiz/code/${code}`, {
                         headers: { Authorization: `Bearer ${token}` }
                     });
                     params.quiz_id = quizRes.data._id;
@@ -36,7 +37,7 @@ const Leaderboard = () => {
                 setSearchedTitle('');
             }
 
-            const response = await axios.get('http://localhost:5000/api/quiz/leaderboard', { params });
+            const response = await axios.get(`${API_BASE_URL}/api/quiz/leaderboard`, { params });
             // Map user._id inside user object if population happened, or just handle user.username
             // Controller populates 'user' -> { _id, username }
             // Our DB: 'user' is the populated object.

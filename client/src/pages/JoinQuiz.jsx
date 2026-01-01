@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -28,7 +29,7 @@ const JoinQuiz = () => {
                 const config = {
                     headers: { Authorization: `Bearer ${userInfo.token}` }
                 };
-                const res = await axios.get('http://localhost:5000/api/quiz/all', config);
+                const res = await axios.get(`${API_BASE_URL}/api/quiz/all`, config);
                 setCommunityQuizzes(res.data);
             } catch (error) {
                 console.error("Failed to load community quizzes", error);

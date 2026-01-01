@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ParticlesBackground from '../components/ParticlesBackground';
@@ -83,8 +84,8 @@ const QuizInterface = () => {
         setIsLoading(true);
         try {
             const token = JSON.parse(localStorage.getItem('userInfo'))?.token;
-            console.log(`[DEBUG] Fetching custom quiz from: http://localhost:5000/api/quiz/code/${code}`);
-            const res = await axios.get(`http://localhost:5000/api/quiz/code/${code}`, {
+            console.log(`[DEBUG] Fetching custom quiz from: ${API_BASE_URL}/api/quiz/code/${code}`);
+            const res = await axios.get(`${API_BASE_URL}/api/quiz/code/${code}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 
@@ -127,7 +128,7 @@ const QuizInterface = () => {
         try {
             const token = user?.token || JSON.parse(localStorage.getItem('userInfo'))?.token;
 
-            const response = await axios.get(`http://localhost:5000/api/quiz/questions`, {
+            const response = await axios.get(`${API_BASE_URL}/api/quiz/questions`, {
                 params: { category: selectedCategory, difficulty },
                 headers: { Authorization: `Bearer ${token}` }
             });
@@ -210,7 +211,7 @@ const QuizInterface = () => {
         try {
             const token = user?.token || JSON.parse(localStorage.getItem('userInfo'))?.token;
             // Post score
-            await axios.post('http://localhost:5000/api/quiz/submit', {
+            await axios.post(`${API_BASE_URL}/api/quiz/submit`, {
                 score,
                 category: selectedCategory,
                 difficulty: selectedDifficulty,

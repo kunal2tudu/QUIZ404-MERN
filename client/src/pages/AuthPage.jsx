@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 import './AuthPage.css'; // Import the new custom styles
 import ParticlesBackground from '../components/ParticlesBackground';
 
@@ -45,7 +46,7 @@ const AuthPage = () => {
             // Simulate minimum delay for animation visibility if API is too fast
             const minDelay = new Promise(resolve => setTimeout(resolve, 1500));
             const [res] = await Promise.all([
-                axios.post(`http://localhost:5000${endpoint}`, payload),
+                axios.post(`${API_BASE_URL}${endpoint}`, payload),
                 minDelay
             ]);
 
