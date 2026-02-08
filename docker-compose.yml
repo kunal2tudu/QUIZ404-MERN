@@ -14,8 +14,9 @@ services:
       - "5000:5000"
     environment:
       - MONGO_URI=mongodb://mongo:27017/quiz404
-      - PORT=5000
-      # Add other env vars here or load from .env
+      # PORT is loaded from .env, but can be overridden here if needed
+    env_file:
+      - ./server/.env
     depends_on:
       - mongo
     networks:

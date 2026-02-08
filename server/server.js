@@ -1,33 +1,44 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const dotenv = require('dotenv');
+require("dotenv").config();
 
-dotenv.config();
+const express = require("express");
+const cors = require("cors");
+const connectDB = require("./config/db");
+
+
 
 const app = express();
 
-// Middleware
 app.use(express.json());
 app.use(cors());
 
-// Database Connection
-const connectDB = require('./config/db');
-connectDB();
-
-// Routes
-app.use('/api/auth', require('./routes/authRoutes'));
-app.use('/api/quiz', require('./routes/quizRoutes'));
-app.use('/api/contact', require('./routes/contactRoutes'));
-
-app.get('/', (req, res) => {
-    res.send('API is running...');
+// 🔑 Ensure MongoDB is connected BEFORE routes
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    console.error("MongoDB error:", err);
+    res.status(500).json({ message: "Database connection failed" });
+  }
 });
 
-const PORT = process.env.PORT || 5000;
+// Routes
+app.use("/api/auth", require("./routes/authRoutes"));
+app.use("/api/quiz", require("./routes/quizRoutes"));
+app.use("/api/contact", require("./routes/contactRoutes"));
 
-if (require.main === module) {
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.get("/", (req, res) => {
+  res.send("API is running...");
+});
+
+// 🚫 NO app.listen() on Vercel
+
+if (process.env.NODE_ENV !== "production") {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () =>
+    console.log(`Server running locally on port ${PORT}`)
+  );
 }
 
 module.exports = app;
+
